@@ -18,7 +18,7 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-  <title>关于 - bowenxiong</title>
+  <title>主键 超键 候选键 外键是什么 - bowenxiong</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
@@ -34,6 +34,8 @@
     
   
 
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   
 
 
@@ -62,7 +64,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -161,9 +163,46 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="关于">
+            <span class="h2" id="subtitle" title="主键 超键 候选键 外键是什么">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-14 10:50" pubdate>
+        2021年7月14日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      573 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -176,70 +215,176 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-            <div class="about-avatar">
-              <img src="/img/avatar.png" srcset="/img/loading.gif" lazyload
-                   class="img-fluid" alt="avatar">
-            </div>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center">
-  <div class="about-info">
-    <div class="about-name">bowenxiong</div>
-    <div class="about-intro">好好学习，天天向上</div>
-    <div class="about-icons">
-      
-        
-        
-        
-        <a href=https://github.com/bowenxiong2021 class="
-           hint--bottom hint--rounded"
-           aria-label=GitHub
-           target="_blank"
-        >
-          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a  class="qr-trigger
-           "
-           
-           target="_self"
-        >
-          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
-          
-            <img class="qr-img" src="/img/zanshang.png" srcset="/img/loading.gif" lazyload alt="qrcode" />
-          
-        </a>
-      
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">主键 超键 候选键 外键是什么</h1>
+            
+            <div class="markdown-body">
+              <p>主键 超键 候选键 外键是什么</p>
+<h4 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h4><p><strong>超键(super key)</strong>: 在关系中能唯一标识元组的属性集称为关系模式的超键.</p>
+<p><strong>候选键(candidate key)</strong>: 不含有多余属性的超键称为候选键。也就是在候选键中，若再删除属性，就不是键了！</p>
+<p><strong>主键(primary key)</strong>: 用户选作元组标识的一个候选键程序主键</p>
+<p>**外键(foreign key)**：如果关系模式R中属性K是其它模式的主键，那么k在模式R中称为外键。</p>
+<h4 id="二、举例"><a href="#二、举例" class="headerlink" title="二、举例"></a>二、举例</h4><p>比如有如下数据：</p>
+<table>
+<thead>
+<tr>
+<th align="center">学号</th>
+<th align="center">姓名</th>
+<th align="center">性别</th>
+<th align="center">年龄</th>
+<th align="center">系别</th>
+<th align="center">专业</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">20020612</td>
+<td align="center">李辉</td>
+<td align="center">男</td>
+<td align="center">20</td>
+<td align="center">计算机</td>
+<td align="center">软件开发</td>
+</tr>
+<tr>
+<td align="center">20060613</td>
+<td align="center">张明</td>
+<td align="center">男</td>
+<td align="center">18</td>
+<td align="center">计算机</td>
+<td align="center">软件开发</td>
+</tr>
+<tr>
+<td align="center">20060614</td>
+<td align="center">王小玉</td>
+<td align="center">女</td>
+<td align="center">19</td>
+<td align="center">物理</td>
+<td align="center">力学</td>
+</tr>
+<tr>
+<td align="center">20060615</td>
+<td align="center">李淑华</td>
+<td align="center">女</td>
+<td align="center">17</td>
+<td align="center">生物</td>
+<td align="center">动物学</td>
+</tr>
+<tr>
+<td align="center">20060616</td>
+<td align="center">赵静</td>
+<td align="center">男</td>
+<td align="center">21</td>
+<td align="center">化学</td>
+<td align="center">食品化学</td>
+</tr>
+<tr>
+<td align="center">20060617</td>
+<td align="center">赵静</td>
+<td align="center">女</td>
+<td align="center">20</td>
+<td align="center">生物</td>
+<td align="center">植物学</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>超键</p>
+<p> 在关系中能唯一标识元组的属性集称为关系模式的超键。</p>
+<p> 于是我们从例子中可以发现 学号是标识学生实体的唯一标识。那么该元组的超键就为学号。</p>
+<p> 除此之外我们还可以把它跟其他属性组合起来，比如：</p>
+<p> (<code>学号</code>，<code>性别</code>)</p>
+<p> (<code>学号</code>，<code>年龄</code>)</p>
+<p> 这样也是超键.</p>
+</li>
+<li><p>候选键</p>
+<p> 不含多余属性的超键为候选键。</p>
+<p> 根据例子可知，学号是一个可以唯一标识元组的唯一标识，因此学号是一个候选键，实际上，候选键是超键的子集，比如 （学号，年龄）是超键，但是它不是候选键。因为它还有了额外的属性。</p>
+</li>
+<li><p>主键</p>
+<p> 用户选择的候选键作为该元组的唯一标识，那么它就为主键。</p>
+<p> 简单的说，例子中的元组的候选键为学号，但是我们选定他作为该元组的唯一标识，那么学号就为主键。</p>
+</li>
+<li><p>外键</p>
+<p> 外键是相对于主键的，比如在学生记录里，主键为学号，在成绩单表中也有学号字段，因此学号为成绩单表的外键，为学生表的主键。</p>
+</li>
+</ol>
+<h4 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h4><p><strong>主键为候选键的子集，候选键为超键的子集，而外键的确定是相对于主键的。</strong></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/MySql/">MySql</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/14/hello-world/">
+                        <span class="hidden-mobile">Hello World</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
   </div>
 </div>
 
-<article class="about-content page-content mt-5">
-  <div class="markdown-body">
-    <p>熊博文<br>bowenxiong2021<br>邮箱：<a href="mailto:&#98;&#x6f;&#119;&#x65;&#110;&#95;&#120;&#105;&#111;&#x6e;&#103;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;">&#98;&#x6f;&#119;&#x65;&#110;&#95;&#120;&#105;&#111;&#x6e;&#103;&#x40;&#x71;&#x71;&#46;&#x63;&#x6f;&#x6d;</a><br>博客：<a target="_blank" rel="noopener" href="https://bowenxiong2021.github.io/">https://bowenxiong2021.github.io</a><br>shengzhen，guangdong </p>
+<!-- Custom -->
 
-  </div>
 
-  
-</article>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     
 
     
@@ -319,7 +464,11 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
 
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
 
