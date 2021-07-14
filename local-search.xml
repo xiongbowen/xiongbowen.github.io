@@ -3,43 +3,5 @@
   
   
   
-  <entry>
-    <title>主键 超键 候选键 外键是什么</title>
-    <link href="/2021/07/14/%E4%B8%BB%E9%94%AE%20%E8%B6%85%E9%94%AE%20%E5%80%99%E9%80%89%E9%94%AE%20%E5%A4%96%E9%94%AE/"/>
-    <url>/2021/07/14/%E4%B8%BB%E9%94%AE%20%E8%B6%85%E9%94%AE%20%E5%80%99%E9%80%89%E9%94%AE%20%E5%A4%96%E9%94%AE/</url>
-    
-    <content type="html"><![CDATA[<p>主键 超键 候选键 外键是什么</p><h4 id="一、定义"><a href="#一、定义" class="headerlink" title="一、定义"></a>一、定义</h4><p><strong>超键(super key)</strong>: 在关系中能唯一标识元组的属性集称为关系模式的超键.</p><p><strong>候选键(candidate key)</strong>: 不含有多余属性的超键称为候选键。也就是在候选键中，若再删除属性，就不是键了！</p><p><strong>主键(primary key)</strong>: 用户选作元组标识的一个候选键程序主键</p><p>**外键(foreign key)**：如果关系模式R中属性K是其它模式的主键，那么k在模式R中称为外键。</p><h4 id="二、举例"><a href="#二、举例" class="headerlink" title="二、举例"></a>二、举例</h4><p>比如有如下数据：</p><table><thead><tr><th align="center">学号</th><th align="center">姓名</th><th align="center">性别</th><th align="center">年龄</th><th align="center">系别</th><th align="center">专业</th></tr></thead><tbody><tr><td align="center">20020612</td><td align="center">李辉</td><td align="center">男</td><td align="center">20</td><td align="center">计算机</td><td align="center">软件开发</td></tr><tr><td align="center">20060613</td><td align="center">张明</td><td align="center">男</td><td align="center">18</td><td align="center">计算机</td><td align="center">软件开发</td></tr><tr><td align="center">20060614</td><td align="center">王小玉</td><td align="center">女</td><td align="center">19</td><td align="center">物理</td><td align="center">力学</td></tr><tr><td align="center">20060615</td><td align="center">李淑华</td><td align="center">女</td><td align="center">17</td><td align="center">生物</td><td align="center">动物学</td></tr><tr><td align="center">20060616</td><td align="center">赵静</td><td align="center">男</td><td align="center">21</td><td align="center">化学</td><td align="center">食品化学</td></tr><tr><td align="center">20060617</td><td align="center">赵静</td><td align="center">女</td><td align="center">20</td><td align="center">生物</td><td align="center">植物学</td></tr></tbody></table><ol><li><p>超键</p><p> 在关系中能唯一标识元组的属性集称为关系模式的超键。</p><p> 于是我们从例子中可以发现 学号是标识学生实体的唯一标识。那么该元组的超键就为学号。</p><p> 除此之外我们还可以把它跟其他属性组合起来，比如：</p><p> (<code>学号</code>，<code>性别</code>)</p><p> (<code>学号</code>，<code>年龄</code>)</p><p> 这样也是超键.</p></li><li><p>候选键</p><p> 不含多余属性的超键为候选键。</p><p> 根据例子可知，学号是一个可以唯一标识元组的唯一标识，因此学号是一个候选键，实际上，候选键是超键的子集，比如 （学号，年龄）是超键，但是它不是候选键。因为它还有了额外的属性。</p></li><li><p>主键</p><p> 用户选择的候选键作为该元组的唯一标识，那么它就为主键。</p><p> 简单的说，例子中的元组的候选键为学号，但是我们选定他作为该元组的唯一标识，那么学号就为主键。</p></li><li><p>外键</p><p> 外键是相对于主键的，比如在学生记录里，主键为学号，在成绩单表中也有学号字段，因此学号为成绩单表的外键，为学生表的主键。</p></li></ol><h4 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h4><p><strong>主键为候选键的子集，候选键为超键的子集，而外键的确定是相对于主键的。</strong></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>Hexo</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="/2021/07/14/hello-world/"/>
-    <url>/2021/07/14/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>Hexo</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
   
 </search>
