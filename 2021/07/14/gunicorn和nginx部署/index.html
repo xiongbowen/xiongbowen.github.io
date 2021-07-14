@@ -1,0 +1,603 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>gunicorn和nginx部署 - bowenxiong</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>熊博文的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="gunicorn和nginx部署">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-14 16:51" pubdate>
+        2021年7月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">gunicorn和nginx部署</h1>
+            
+            <div class="markdown-body">
+              <h1 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h1><h2 id="一-使用gunicorn和nginx部署"><a href="#一-使用gunicorn和nginx部署" class="headerlink" title="一. 使用gunicorn和nginx部署"></a>一. 使用gunicorn和nginx部署</h2><p>当我们执行下面的hello.py时，使用的flask自带的服务器，完成了web服务的启动。在生产环境中，flask自带的服务器，无法满足性能要求，我们这里采用Gunicorn做wsgi容器，来部署flask程序。Gunicorn（绿色独角兽）是一个Python WSGI的HTTP服务器。从Ruby的独角兽（Unicorn ）项目移植。该Gunicorn服务器与各种Web框架兼容，实现非常简单，轻量级的资源消耗。Gunicorn直接用命令启动，不需要编写配置文件，相对uWSGI要容易很多。</p>
+<p>区分几个概念：</p>
+<p><strong>WSGI</strong>：全称是Web Server Gateway Interface（web服务器网关接口），它是一种规范，它是web服务器和web应用程序之间的接口。它的作用就像是桥梁，连接在web服务器和web应用框架之间。</p>
+<p><strong>uwsgi</strong>：是一种传输协议，用于定义传输信息的类型。</p>
+<p><strong>uWSGI</strong>：是实现了uwsgi协议WSGI的web服务器。</p>
+<p>我们的部署方式： nginx + gunicorn + flask</p>
+<h3 id="使用Gunicorn："><a href="#使用Gunicorn：" class="headerlink" title="使用Gunicorn："></a>使用Gunicorn：</h3><p>web开发中，部署方式大致类似。简单来说，前端代理使用Nginx主要是为了实现分流、转发、负载均衡，以及分担服务器的压力。Nginx部署简单，内存消耗少，成本低。Nginx既可以做正向代理，也可以做反向代理。</p>
+<p>正向代理：请求经过代理服务器从局域网发出，然后到达互联网上的服务器。</p>
+<p>特点：服务端并不知道真正的客户端是谁。</p>
+<p>反向代理：请求从互联网发出，先进入代理服务器，再转发给局域网内的服务器。</p>
+<p>特点：客户端并不知道真正的服务端是谁。</p>
+<p>区别：正向代理的对象是客户端。反向代理的对象是服务端。</p>
+<p><strong>安装gunicorn</strong></p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> gunicorn<br><br></code></pre></td></tr></table></figure>
+
+<p><strong>查看命令行选项</strong>： 安装gunicorn成功后，通过命令行的方式可以查看gunicorn的使用信息。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-meta"><span class="hljs-meta-keyword">$gunicorn</span> -h</span><br><br></code></pre></td></tr></table></figure>
+
+<p><strong>直接运行</strong>：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-comment">#直接运行，默认启动的127.0.0.1:8000</span><br>gunicorn 运行文件名称<span class="hljs-symbol">:Flask</span>程序实例名<br></code></pre></td></tr></table></figure>
+
+<p><strong>指定进程和端口号</strong>： -w: 表示进程（worker）。 -b：表示绑定ip地址和端口号（bind）。-D：表示以守护进程方式运行。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$gunicorn</span> -w <span class="hljs-number">4</span> -b <span class="hljs-number">127.0</span>.0.<span class="hljs-number">1</span><span class="hljs-symbol">:</span><span class="hljs-number">5001</span> -D 运行文件名称<span class="hljs-symbol">:Flask</span>程序实例名<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">$ sudo apt-<span class="hljs-builtin-name">get</span> install nginx<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h3><p>默认安装到/usr/local/nginx/目录，进入目录。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ sudo <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/nginx/</span>conf/nginx.conf<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs vala"><span class="hljs-meta">#启动</span><br>sudo sbin/nginx<br><span class="hljs-meta">#查看</span><br>ps aux | grep nginx<br><span class="hljs-meta">#停止</span><br>sudo sbin/nginx -s stop<br><span class="hljs-meta">#重启</span><br>sudo sbin/nginx -s reload<br></code></pre></td></tr></table></figure>
+
+
+<p>打开/usr/local/nginx/conf/nginx.conf文件</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-comment"># 监听80端口</span><br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span>;<br>    <span class="hljs-comment"># 本机</span><br>    <span class="hljs-attribute">server_name</span> localhost; <br>    <span class="hljs-comment"># 默认请求的url</span><br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-comment">#请求转发到gunicorn服务器</span><br>        <span class="hljs-attribute">proxy_pass</span> http://127.0.0.1:5001; <br>        <span class="hljs-comment">#设置请求头，并将头信息传递给服务器端 </span><br>        <span class="hljs-attribute">proxy_set_header</span> Host $host; <br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="二-使用uWSGI和nginx进行服务器部署"><a href="#二-使用uWSGI和nginx进行服务器部署" class="headerlink" title="二. 使用uWSGI和nginx进行服务器部署"></a>二. 使用uWSGI和nginx进行服务器部署</h2><p>区分几个概念：</p>
+<p><strong>WSGI</strong>：</p>
+<ul>
+<li>全称是Web Server Gateway Interface（web服务器网关接口）</li>
+<li>它是一种规范，它是web服务器和web应用程序之间的接口</li>
+<li>它的作用就像是桥梁，连接在web服务器和web应用框架之间</li>
+<li>没有官方的实现，更像一个协议。只要遵照这些协议，WSGI应用(Application)都可以在任何服务器(Server)上运行</li>
+</ul>
+<p><strong>uwsgi</strong>：是一种传输协议，用于定义传输信息的类型。常用于在uWSGI服务器与其他网络服务器的数据通信</p>
+<p><strong>uWSGI</strong>：是实现了uwsgi协议WSGI的web服务器。</p>
+<h2 id="阿里云服务器"><a href="#阿里云服务器" class="headerlink" title="阿里云服务器"></a>阿里云服务器</h2><ul>
+<li>选择云服务器:阿里云服务器 <a target="_blank" rel="noopener" href="https://www.aliyun.com/">https://www.aliyun.com</a></li>
+<li>购买服务器:在首页最底下有一个免费使用的优惠购买：最便宜的套餐为9.9元，送一个入门级别的云服务器ECS和其他的一些服务器</li>
+<li>购买后,再次进入首页最底下,点击免费获取 <a target="_blank" rel="noopener" href="https://free.aliyun.com/">https://free.aliyun.com/</a><br><img src="/assets/free_get1.png" srcset="/img/loading.gif" lazyload alt="免费获取1"></li>
+<li>进入如下图所示的界面,点击第一项云服务器ECS的立即开通(由于本人已经创建,故:没有显示立即开通,而是前往控制台)<br><img src="/assets/free_get2.png" srcset="/img/loading.gif" lazyload alt="免费获取2"><br><img src="/assets/server_create.png" srcset="/img/loading.gif" lazyload alt="创建服务器"></li>
+<li>创建服务器选择ubuntu16.04 64位的操作系统<br><img src="/assets/QQ20171031-150105@2x.png" srcset="/img/loading.gif" lazyload></li>
+<li>进入控制台,查看实例创建情况<br><img src="/assets/instance.png" srcset="/img/loading.gif" lazyload alt="控制台"></li>
+<li>给安全组配置规则，添加5000端口</li>
+</ul>
+<p><img src="/assets/%E5%AE%89%E5%85%A8%E7%BB%84.png" srcset="/img/loading.gif" lazyload alt="安全组"><br><img src="/assets/%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99.png" srcset="/img/loading.gif" lazyload alt="配置规则"><br><img src="/assets/%E6%B7%BB%E5%8A%A0%E5%AE%89%E5%85%A8%E7%BB%84%E8%A7%84%E5%88%99.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>利用命令行进行远程服务器登录</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh 用户名@ip地址<br></code></pre></td></tr></table></figure>
+
+<h2 id="登陆后的相关软件安装"><a href="#登陆后的相关软件安装" class="headerlink" title="登陆后的相关软件安装"></a>登陆后的相关软件安装</h2><h3 id="先更新apt软件源"><a href="#先更新apt软件源" class="headerlink" title="先更新apt软件源"></a>先更新apt软件源</h3><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">sudo apt-<span class="hljs-keyword">get</span> <span class="hljs-keyword">update</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="python和pip"><a href="#python和pip" class="headerlink" title="python和pip"></a>python和pip</h3><p>这两个环境是ubuntu16.04自带的</p>
+<h3 id="uwsgi安装"><a href="#uwsgi安装" class="headerlink" title="uwsgi安装"></a>uwsgi安装</h3><ul>
+<li>uwsgi是一个能够运行flask项目的高性能web服务器，需要先安装两个依赖</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">apt-get <span class="hljs-keyword">install </span><span class="hljs-keyword">build-essential </span>python-dev<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>然后进行uwsgi的安装</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> uwsgi<br></code></pre></td></tr></table></figure>
+
+<h3 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install nginx<br></code></pre></td></tr></table></figure>
+
+<h3 id="mysql的安装"><a href="#mysql的安装" class="headerlink" title="mysql的安装:"></a>mysql的安装:</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">apt-<span class="hljs-builtin-name">get</span> install mysql-server<br>apt-<span class="hljs-builtin-name">get</span> install libmysqlclient-dev<br></code></pre></td></tr></table></figure>
+
+<h3 id="虚拟环境的安装"><a href="#虚拟环境的安装" class="headerlink" title="虚拟环境的安装"></a>虚拟环境的安装</h3><ul>
+<li>virtualenv和virtualenvwrapper的安装：</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> virtualenv<br>pip <span class="hljs-keyword">install</span> virtualenvwrapper<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使得安装的virtualenvwrapper生效，编辑~/.bashrc文件，内容如下:</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">WORKON_HOME</span>=<span class="hljs-variable">$HOME</span>/.virtualenvs<br><span class="hljs-builtin-name">export</span> <span class="hljs-attribute">PROJECT_HOME</span>=<span class="hljs-variable">$HOME</span>/workspace<br>source /usr/local/bin/virtualenvwrapper.sh<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>使编辑后的文件生效</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">source</span> ~/.bashrc<br></code></pre></td></tr></table></figure>
+
+<h2 id="hello-world程序的部署"><a href="#hello-world程序的部署" class="headerlink" title="hello world程序的部署"></a>hello world程序的部署</h2><ul>
+<li>利用pycharm创建python项目</li>
+<li>创建config.ini文件作为uwsgi的初始化配置文件</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-comment">#需要声明uwsgi使得uwsgi能够识别当前文件</span><br><span class="hljs-section">[uwsgi]</span><br><span class="hljs-attr">master</span> = <span class="hljs-literal">true</span><br><span class="hljs-comment"># 使用 nginx 配合连接时使用</span><br><span class="hljs-comment"># socket = :5000</span><br><span class="hljs-comment"># 直接做web服务器使用</span><br><span class="hljs-attr">http</span> = :<span class="hljs-number">5000</span><br><span class="hljs-comment"># 设定进程数</span><br><span class="hljs-attr">processes</span> = <span class="hljs-number">4</span><br><span class="hljs-comment"># 设定线程数       </span><br><span class="hljs-attr">threads</span> = <span class="hljs-number">2</span><br><span class="hljs-comment"># 指定运行的文件</span><br><span class="hljs-attr">wsgi-file</span> = app.py<br><span class="hljs-comment">#指定运行的项目的目录[自已项目在哪个目录就用哪个目录]</span><br><span class="hljs-attr">chdir</span> = /root/home/hello_world<br><span class="hljs-comment"># 指定运行的实例</span><br><span class="hljs-attr">callable</span> = app<br><span class="hljs-comment"># 指定uwsgi服务器的缓冲大小</span><br><span class="hljs-attr">buffer-size</span> = <span class="hljs-number">32768</span><br><span class="hljs-comment"># 在虚拟环境中运行需要指定python目录</span><br><span class="hljs-attr">pythonpath</span> = /root/.virtualenvs/Flask_test/lib/python2.<span class="hljs-number">7</span>/site-packages<br><span class="hljs-comment"># 设置进程id文件</span><br><span class="hljs-attr">pidfile</span> = uwsgi.pid<br><span class="hljs-comment"># 以守护的形式运行，设置log输出位置</span><br><span class="hljs-attr">daemonize</span> = uwsgi.log<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>利用scp命令将整个项目上传到远程服务器中</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs awk">scp -r 本地目录 用户名@ip地址:远程目录<br><br>scp -r <span class="hljs-regexp">/home/</span>python<span class="hljs-regexp">/Desktop/</span>hello_world<span class="hljs-regexp">/ root@39.106.21.198:/</span>root/home<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>通过指令运行uwsgi.ini服务器</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">uwsgi <span class="hljs-comment">--ini config.ini</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>查看</li>
+</ul>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">ps</span> ajx|<span class="hljs-keyword">grep</span> uwsgi<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>停止</li>
+</ul>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">uwsgi <span class="hljs-comment">--stop uwsgi.pid</span><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>其中<br>–ini config.ini 表示指定运行的配置文件<br>-d uwsgi.log 表示uwsgi在后台运行,运行过程中产生的日志会存储在uwsgi.log中</p>
+</blockquote>
+<ul>
+<li>配置nginx服务器</li>
+</ul>
+<p>编辑文件:/etc/nginx/sites-available/default</p>
+<p>修改为如下内容:</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>    <span class="hljs-attribute">listen</span> <span class="hljs-number">80</span> default_server;<br><br>    <span class="hljs-attribute">server_name</span> <span class="hljs-number">59.110.240.237</span>;    <br><br>    <span class="hljs-attribute">location</span> / &#123;<br>        <span class="hljs-attribute">include</span> uwsgi_params;<br>        <span class="hljs-attribute">uwsgi_pass</span> <span class="hljs-number">59.110.240.237:5000</span>;<br>        <span class="hljs-attribute">uwsgi_read_timeout</span> <span class="hljs-number">100</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>将server中原有的,上述配置中不能存在的内容注释或删除掉</p>
+<ul>
+<li>启动和停止nginx服务器</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/i</span>nit.d/nginx start <span class="hljs-comment">#启动</span><br><span class="hljs-regexp">/etc/i</span>nit.d/nginx stop  <span class="hljs-comment">#停止</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="本地项目的远程部署"><a href="#本地项目的远程部署" class="headerlink" title="本地项目的远程部署"></a>本地项目的远程部署</h2><ul>
+<li>3,创建虚拟环境</li>
+</ul>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">mkvirtualenv</span> 虚拟环境名称<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>4,在虚拟环境中安装项目所需要的依赖</li>
+</ul>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">pip <span class="hljs-keyword">install</span> -r 依赖文件(requirements.txt)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>5,通过scp命令将整个项目上传到远程服务器</li>
+</ul>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj">scp -r 本地目录 用户名<span class="hljs-meta">@ip</span>地址:远程目录<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>6,创建config.ini文件,配置和之前一致,但要加入一个虚拟环境的配置</li>
+</ul>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">pythonpath = <span class="hljs-regexp">/root/</span>.virtualenvs<span class="hljs-regexp">/flask_test/</span>lib<span class="hljs-regexp">/python2.7/</span>site-packages <span class="hljs-comment">#表示指定虚拟环境目录,使用虚拟环境中安装的扩展</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>7,运行uwsgi和之前操作一致,但要修改项目目录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">uwsgi --ini config.ini<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>8,运行nginx和之前操作一致,但要修改项目目录</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">/etc/init.d/nginx start<br></code></pre></td></tr></table></figure>
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Python/">Python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/14/%E4%B8%BB%E9%94%AE%20%E8%B6%85%E9%94%AE%20%E5%80%99%E9%80%89%E9%94%AE%20%E5%A4%96%E9%94%AE/">
+                        <span class="hidden-mobile">主键 超键 候选键 外键是什么</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
