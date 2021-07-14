@@ -182,28 +182,22 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/07/14/%E8%A7%A3%E9%87%8A%20SQL%20%E7%9A%84%20left%20join%20%E5%92%8C%20right%20join/" target="_self">
-          
+        <a href="/2021/07/14/%E4%B8%BB%E9%94%AE%20%E8%B6%85%E9%94%AE%20%E5%80%99%E9%80%89%E9%94%AE%20%E5%A4%96%E9%94%AE/" target="_self">
+          主键 超键 候选键 外键是什么
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/07/14/%E8%A7%A3%E9%87%8A%20SQL%20%E7%9A%84%20left%20join%20%E5%92%8C%20right%20join/" target="_self">
+        <a href="/2021/07/14/%E4%B8%BB%E9%94%AE%20%E8%B6%85%E9%94%AE%20%E5%80%99%E9%80%89%E9%94%AE%20%E5%A4%96%E9%94%AE/" target="_self">
           
           
             
           
-          题目：解释 SQL 的 left join 和 right join出题人：阿里巴巴新零售技术质量部参考答案：left join 和 right join 都是两个表进行 merge 的操作，left join 是将右边的表 merge 到左边，right join 是将左边的表 merge 到右边，通常我们会指定按照哪几列进行 merge
-举个例子：
-left table
-
-
-
-姓名
-学号
-
-
-
+          主键 超键 候选键 外键是什么
+一、定义超键(super key): 在关系中能唯一标识元组的属性集称为关系模式的超键.
+候选键(candidate key): 不含有多余属性的超键称为候选键。也就是在候选键中，若再删除属性，就不是键了！
+主键(primary key): 用户选作元组标识的一个候选键程序主键
+**外键(foreign key)**：如果关系模式R中属性K是其它模式的主键，那么k在
         </a>
       </p>
 
@@ -228,20 +222,19 @@ left table
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/07/14/%E8%A7%86%E5%9B%BE%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%8C%E8%A7%86%E5%9B%BE%E5%8F%AF%E4%BB%A5%E6%9B%B4%E6%94%B9%E4%B9%88%EF%BC%9F/" target="_self">
-          
+        <a href="/2021/07/14/hello-world/" target="_self">
+          Hello World
         </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/07/14/%E8%A7%86%E5%9B%BE%E7%9A%84%E4%BD%9C%E7%94%A8%EF%BC%8C%E8%A7%86%E5%9B%BE%E5%8F%AF%E4%BB%A5%E6%9B%B4%E6%94%B9%E4%B9%88%EF%BC%9F/" target="_self">
+        <a href="/2021/07/14/hello-world/" target="_self">
           
           
             
           
-          题目：视图的作用，视图可以更改么？参考答案：视图是虚拟的表，与包含数据的表不一样，视图只包含使用时动态检索数据的查询；不包含任何列或数据。使用视图可以简化复杂的sql操作，隐藏具体的细节，保护数据；视图创建后，可以使用与表相同的方式利用它们。
-视图不能被索引，也不能有关联的触发器或默认值，如果视图本身内有order by 则对视图再次order by将被覆盖。
-创建视图：create view X
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick
         </a>
       </p>
 
@@ -249,314 +242,7 @@ left table
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E7%A7%8D%E7%B1%BB/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E7%B4%A2%E5%BC%95%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86%E5%8F%8A%E5%85%B6%E7%A7%8D%E7%B1%BB/" target="_self">
-          
-          
-            
-          
-          题目：索引的工作原理及其种类参考答案：数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用B树及其变种B+树。
-在数据之外，数据库系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。
-为表设置索引要付出代价的：一是增加了数据库的存储空间，二是在插入和修
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%B5%85%E5%A4%8D%E5%88%B6%E5%92%8C%E6%B7%B1%E5%A4%8D%E5%88%B6%EF%BC%9F%E6%80%8E%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%B7%B1%E5%A4%8D%E5%88%B6%EF%BC%9F/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%B5%85%E5%A4%8D%E5%88%B6%E5%92%8C%E6%B7%B1%E5%A4%8D%E5%88%B6%EF%BC%9F%E6%80%8E%E6%A0%B7%E5%AE%9E%E7%8E%B0%E6%B7%B1%E5%A4%8D%E5%88%B6%EF%BC%9F/" target="_self">
-          
-          
-            
-          
-          题目：浅复制和深复制？怎样实现深复制？出题人：阿里巴巴新零售技术质量部参考答案：参考代码;123456789101112131415161718192021const isObject = (item)=&gt;&#123;  return Object.prototype.toString.call(item) === &#x27;[object Object]&#x27;;&#125;cons
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%97%A0%E6%A0%87%E9%A2%98Markdown/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%97%A0%E6%A0%87%E9%A2%98Markdown/" target="_self">
-          
-          
-            
-          
-          d 
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F/" target="_self">
-          
-          
-            
-          
-          题目：数据库范式参考答案：1 第一范式（1NF）
-在任何一个关系数据库中，第一范式（1NF）是对关系模式的基本要求，不满足第一范式（1NF）的数据库就不是关系数据库。所谓第一范式（1NF）是指数据库表的每一列都是不可分割的基本数据项，同一列中不能有多个值，即实体中的某个属性不能有多个值或者不能有重复的属性。如果出现重复的属性，就可能需要定义一个新的实体，新的实体由重复的属性构成，新实体与原实体之间
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E7%9A%84%E6%80%9D%E8%B7%AF/" target="_self">
-          
-          
-            
-          
-          题目：数据库优化的思路参考答案：这个我借鉴了慕课上关于数据库优化的课程。
-1.SQL语句优化  
-
-应尽量避免在 where 子句中使用!=或&lt;&gt;操作符，否则将引擎放弃使用索引而进行全表扫描。  
-
-应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：
-  1select id from t where num is null
-
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E4%B8%AA%E7%89%B9%E6%80%A7%E5%8F%8A%E5%90%AB%E4%B9%89/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E4%B8%AA%E7%89%B9%E6%80%A7%E5%8F%8A%E5%90%AB%E4%B9%89/" target="_self">
-          
-          
-            
-          
-          题目：数据库事务的四个特性及含义参考答案：数据库事务transanction正确执行的四个基本要素。ACID,原子性(Atomicity)、一致性(Correspondence)、隔离性(Isolation)、持久性(Durability)
-
-原子性:整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_self">
-          
-          
-            
-          
-          ● 请你说一说数据库索引参考回答：索引是对数据库表中一列或多列的值进行排序的一种结构，使用索引可快速访问数据库表中的特定信息。如果想按特定职员的姓来查找他或她，则与在表中搜索所有的行相比，索引有助于更快地获取信息。
-索引的一个主要目的就是加快检索表中数据的方法，亦即能协助信息搜索者尽快的找到符合限制条件的记录ID的辅助数据结构。
-● 请你说一说数据库事务参考回答：数据库事务(Database Tr
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
-              2021-07-14
-            </time>
-          </div>
-        
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%863/" target="_self">
-          
-        </a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/14/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%863/" target="_self">
-          
-          
-            
-          
-          请你来说一说协程参考回答：1、概念：
-协程，又称微线程，纤程，英文名Coroutine。协程看上去也是子程序，但执行过程中，在子程序内部可中断，然后转而执行别的子程序，在适当的时候再返回来接着执行。
-例如：
-12345678def A() :print &#x27;1&#x27;print &#x27;2&#x27;print &#x27;3&#x27;def B() :print &#x27;x
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-14 10:50" pubdate>
+            <time datetime="2021-07-14 10:06" pubdate>
               2021-07-14
             </time>
           </div>
@@ -568,12 +254,6 @@ left table
   </div>
 
 
-
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
 
 
 
