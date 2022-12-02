@@ -1,0 +1,543 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>常用powershell脚本汇总 - bowenxiong</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>熊博文的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="常用powershell脚本汇总">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-12-02 21:41" pubdate>
+        2022年12月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      42
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">常用powershell脚本汇总</h1>
+            
+            <div class="markdown-body">
+              <h1 id="powershell脚本"><a href="#powershell脚本" class="headerlink" title="powershell脚本"></a>powershell脚本</h1><p>常用powershell脚本汇总</p>
+<h2 id="二、获取大组的成员数量"><a href="#二、获取大组的成员数量" class="headerlink" title="二、获取大组的成员数量"></a>二、获取大组的成员数量</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">(<span class="hljs-built_in">Get-ADGroup</span> mygroup <span class="hljs-literal">-properties</span> members |<span class="hljs-built_in">select-object</span> <span class="hljs-literal">-Expandproperty</span> members).members<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="三、powershell的参数"><a href="#三、powershell的参数" class="headerlink" title="三、powershell的参数"></a>三、powershell的参数</h2><ol>
+<li>参数集：一堆参数，不能同时使用，例如，不同的tab表示不同的参数集<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">show-command</span> <span class="hljs-built_in">get-eventlog</span><br></code></pre></td></tr></table></figure></li>
+<li>位置参数：只有参数名在[]</li>
+<li>开关参数：没有参数值的参数</li>
+<li>可选参数：参数名和参数值在同一个[]内</li>
+<li>通用参数：所有的命令都支持的参数，比如，-verbeos</li>
+</ol>
+<h2 id="四、什么是提供程序"><a href="#四、什么是提供程序" class="headerlink" title="四、什么是提供程序"></a>四、什么是提供程序</h2><p>一个Powershell的提供程序，或者说PSProvider，其本质上是一个适配器。它可以接受某此数据在储，并使得这些介质看起来像是磁盘驱动器一样。你可以通过下面的命令查看当前 Shell 中己经存在的提供程序。<br> <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-PSProvider</span><br></code></pre></td></tr></table></figure><br>我们可以通过模块或者管理单元将一些提供程序添加到 PowerShell 中，这也是Powershell 仅支持的两种扩展方式。（我们会在第7章中讲解该部分知识。）有些时候，如果启用了某些 PowerShell 功能，可能也会新增一个 PSProvider。比如，当开启了远程处理时（将在第13 章中讨论该话题），会新增一个 PSProvider，</p>
+<p>我们可以看出每个提供程序都有各自不同的功能。这非常重要，因为这将决定如何使用这些提供程序。下面是常见的一些功能描述。<br>ShouldProcess这部分提供程序支持-WhatIf 和-Confirm参数我们在正式执行这部分脚本之前可以对它们进行测试。<br>Filter–在Cmdlet 中操作提供程序的数据时，支持-Filter 参数。<br>Credentials.-该提供程序允许使用可变更的凭据连接数据存储。这也就是-Credentials 参数的作用。<br>Transactions该提供程序支持事务，也就是允许你在该提供程序中名个变更作为一个原子操作进行提交或者全部回滚。<br>你也可以使用某个提供程序创建一个 PSDrive。 PsDrive 可以通过一个特定的提供序连接到某些存储数据的介质。这和在 Windows 资源管理器中类似，本质上是创建了个驱动器映射。但是由于 PSDrive 使用了提供程序，除了可以连接磁盘之外，还能连接更多的数据存储介质。运行下面的命会，可以看到当前已连接的驱动器。</p>
+<h2 id="PowerShe11获取AD-OU的安全访问权限acl-ace"><a href="#PowerShe11获取AD-OU的安全访问权限acl-ace" class="headerlink" title="PowerShe11获取AD OU的安全访问权限acl ace"></a>PowerShe11获取AD OU的安全访问权限acl ace</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$SearchBase</span>=“OU=MAILGROUPTEST, dc=xx,dc=com”<br><span class="hljs-variable">$SysManObj</span>= [<span class="hljs-type">ADSI</span>] (<span class="hljs-string">&quot;LDAP://<span class="hljs-variable">$SearchBase</span>&quot;</span>) <span class="hljs-comment">#get the OU object</span><br><span class="hljs-variable">$t</span>= <span class="hljs-variable">$SysManobj</span>.psbase.ObjectSecurity.Access<br><span class="hljs-variable">$t</span> |<span class="hljs-built_in">select</span> *|?&#123;<span class="hljs-variable">$_</span>.IdentityReference <span class="hljs-operator">-like</span> <span class="hljs-string">&quot;*adself*&quot;</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="通过ADSI连接AD或本地系统接口"><a href="#通过ADSI连接AD或本地系统接口" class="headerlink" title="通过ADSI连接AD或本地系统接口"></a>通过ADSI连接AD或本地系统接口</h2><p>adsi将返回一些System._comobject对象，那么怎么转换对象为可读的值呢</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$adsi</span>.convertlargeintegertoint64(<span class="hljs-variable">$adsi</span>.lastlogontimestamp[<span class="hljs-number">0</span>])<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="PowerShell获取AD对象的ACL"><a href="#PowerShell获取AD对象的ACL" class="headerlink" title="PowerShell获取AD对象的ACL"></a>PowerShell获取AD对象的ACL</h2><ol>
+<li>方式一<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">获取AD对象的acl<br><span class="hljs-built_in">Get-acl</span> ad:”cn=xiongbowen,dc=centoso,dc=com”<br></code></pre></td></tr></table></figure></li>
+<li>方式二<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$Searcher</span> = <span class="hljs-built_in">New-Object</span> System.DirectoryServices.DirectorySearcher(<span class="hljs-string">&#x27;(samaccountname=HQ-b59404$)&#x27;</span>)<br><span class="hljs-variable">$Searcher</span>.SecurityMasks = [<span class="hljs-type">System.DirectoryServices.SecurityMasks</span>]::Dacl <span class="hljs-operator">-bor</span> [<span class="hljs-type">System.DirectoryServices.SecurityMasks</span>]::Owner<br><span class="hljs-variable">$Result</span> = <span class="hljs-variable">$Searcher</span>. FindOne()<br><span class="hljs-variable">$Result</span>.Properties.ntsecuritydescriptor[<span class="hljs-number">0</span>]. gettype()<br><span class="hljs-variable">$ADSecurityDescriptor</span>.SetSecurityDescriptorBinaryForm(<span class="hljs-variable">$Result</span>.Properties.ntsecuritydescriptor[<span class="hljs-number">0</span>])<br><span class="hljs-variable">$ADSecurityDescriptor</span><br><span class="hljs-variable">$ADSecurityDescriptor</span>.Access <br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="本地用户的验证方法："><a href="#本地用户的验证方法：" class="headerlink" title="本地用户的验证方法："></a>本地用户的验证方法：</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Add-Type</span> <span class="hljs-literal">-assemblyname</span><br>system.DirectoryServices.accountmanagement<br><span class="hljs-variable">$DS</span> = <span class="hljs-built_in">New-Object</span><br>System.DirectoryServices.AccountManagement.PrincipalContext<br>([<span class="hljs-type">System.DirectoryServices.AccountManagement.ContextType</span>]:Machine,<span class="hljs-string">&quot;computer1<span class="hljs-variable">$</span>&quot;</span>)<br><span class="hljs-variable">$DS</span>.ValidateCredentials(<span class="hljs-string">&quot;administrator&quot;</span>,<span class="hljs-string">&quot;xxxx&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="获取ad账号过期时间，并转换时间格式"><a href="#获取ad账号过期时间，并转换时间格式" class="headerlink" title="获取ad账号过期时间，并转换时间格式"></a>获取ad账号过期时间，并转换时间格式</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-string">&quot;zhangsan</span><br><span class="hljs-string">lisi</span><br><span class="hljs-string"> xiongbowen&quot;</span><br><span class="hljs-operator">-split</span> <span class="hljs-string">&quot;`r`n&quot;</span> |%&#123;<span class="hljs-built_in">Get-ADUser</span> <span class="hljs-variable">$_</span><br><span class="hljs-literal">-Properties</span><br>msDS<span class="hljs-literal">-UserPasswordExpiryTimeComputed</span>|<br><span class="hljs-built_in">Select</span> <span class="hljs-literal">-Property</span> <span class="hljs-string">&quot;SamAccountName&quot;</span>, &#123;Name=<span class="hljs-string">&quot;ExpiryDate&quot;</span>;Expression=｛[<span class="hljs-built_in">datetime</span>]::FromFileTime (<span class="hljs-variable">$_</span>. <span class="hljs-string">&quot;msDS-UserPasswordExpiryTimeComputed&quot;</span>)]&#125; &#125;<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="夺权提权windows"><a href="#夺权提权windows" class="headerlink" title="夺权提权windows"></a>夺权提权windows</h2> <figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bat">takeown /S <span class="hljs-number">10</span>.<span class="hljs-number">1</span>.<span class="hljs-number">48</span>.<span class="hljs-number">95</span> /U centoso\admin /p xxxux /f  C:\myfolder<br>Takeown /f C:\ONE /r /d y<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="修改文件-文件夹的ACL"><a href="#修改文件-文件夹的ACL" class="headerlink" title="修改文件/文件夹的ACL"></a>修改文件/文件夹的ACL</h2><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bat"><span class="hljs-built_in">cacls</span>.exe &quot;d:\test.txt&quot; /e /t /p users:r<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="设置用户可以登陆的工作站"><a href="#设置用户可以登陆的工作站" class="headerlink" title="设置用户可以登陆的工作站"></a>设置用户可以登陆的工作站</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">set-aduser</span> xiongbowen   <span class="hljs-literal">-logonworkstations</span> comp1,comp2,comp3<br><span class="hljs-comment">#**同时要加上跳板机和目标机器**</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="如何查询域用户，本地用户在对应组的加入时间，以及他们最后登录的时间。"><a href="#如何查询域用户，本地用户在对应组的加入时间，以及他们最后登录的时间。" class="headerlink" title="如何查询域用户，本地用户在对应组的加入时间，以及他们最后登录的时间。"></a>如何查询域用户，本地用户在对应组的加入时间，以及他们最后登录的时间。</h2><h3 id="对于域用户，最后登录时间很容易，get-aduser就能获取了。注意一下时间格式转换"><a href="#对于域用户，最后登录时间很容易，get-aduser就能获取了。注意一下时间格式转换" class="headerlink" title="对于域用户，最后登录时间很容易，get-aduser就能获取了。注意一下时间格式转换"></a>对于域用户，最后登录时间很容易，get-aduser就能获取了。注意一下时间格式转换</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">get-aduser</span> yli <span class="hljs-literal">-Properties</span> lastlogon | <span class="hljs-built_in">select</span> name, <span class="hljs-selector-tag">@</span>&#123;n=<span class="hljs-string">&quot;Lastlogon&quot;</span>;e=&#123;[<span class="hljs-built_in">datetime</span>]::FromFileTime(<span class="hljs-variable">$_</span>.lastlogon)&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="域用户加入组的时间需要在对应的DC上查询metadata。比如查询域管理员都是什么时候加入这个组的"><a href="#域用户加入组的时间需要在对应的DC上查询metadata。比如查询域管理员都是什么时候加入这个组的" class="headerlink" title="域用户加入组的时间需要在对应的DC上查询metadata。比如查询域管理员都是什么时候加入这个组的"></a>域用户加入组的时间需要在对应的DC上查询metadata。比如查询域管理员都是什么时候加入这个组的</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$pdc</span>=<span class="hljs-built_in">Get-ADDomainController</span> <span class="hljs-literal">-Discover</span> <span class="hljs-literal">-Service</span> PrimaryDC<br><span class="hljs-variable">$dn</span>=(<span class="hljs-built_in">get-adgroup</span> <span class="hljs-string">&quot;domain admins&quot;</span>).distinguishedname<br><span class="hljs-built_in">Get-ADReplicationAttributeMetadatax</span> <span class="hljs-variable">$dn</span> <span class="hljs-literal">-Server</span> <span class="hljs-variable">$pdc</span> <span class="hljs-literal">-ShowAllLinkedValues</span> | <span class="hljs-built_in">Where-Object</span> &#123;<span class="hljs-variable">$_</span>.attributename <span class="hljs-operator">-eq</span> <span class="hljs-string">&#x27;member&#x27;</span>&#125; | <span class="hljs-built_in">select</span> FirstOriginatingcreatetime, attributevalue<br></code></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="本地用户的登录时间需要用-adsi来查询。在AD-模块开发之前，管理员只能用ADSI来操纵AD和本地对象。现在操作AD可以直接用模块了，但是本地的貌似还得用ADSI才行。"><a href="#本地用户的登录时间需要用-adsi来查询。在AD-模块开发之前，管理员只能用ADSI来操纵AD和本地对象。现在操作AD可以直接用模块了，但是本地的貌似还得用ADSI才行。" class="headerlink" title="本地用户的登录时间需要用 adsi来查询。在AD 模块开发之前，管理员只能用ADSI来操纵AD和本地对象。现在操作AD可以直接用模块了，但是本地的貌似还得用ADSI才行。"></a>本地用户的登录时间需要用 adsi来查询。在AD 模块开发之前，管理员只能用ADSI来操纵AD和本地对象。现在操作AD可以直接用模块了，但是本地的貌似还得用ADSI才行。</h3><p>比如查询本机的所有本地用户的上一次登录时间</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-variable">$adsi</span> = [<span class="hljs-type">ADSI</span>]<span class="hljs-string">&quot;WinNT://<span class="hljs-variable">$env:COMPUTERNAME</span>&quot;</span><span class="hljs-comment">#WinNT严格区分大小写</span><br><span class="hljs-variable">$adsi</span>.Children | <span class="hljs-built_in">where</span> &#123;<span class="hljs-variable">$_</span>.SchemaClassName <span class="hljs-operator">-eq</span> <span class="hljs-string">&#x27;user&#x27;</span>&#125;  | <span class="hljs-built_in">select</span> name,Lastlogin<br></code></pre></td></tr></table></figure>
+
+<p>如何修改cmd和powershell的字符集</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">chcp <span class="hljs-number">65001</span> <span class="hljs-comment">#UTF-8</span><br>chcp <span class="hljs-number">936</span> <span class="hljs-comment">#GBK</span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="如何通过WMI和PowerShell获取COM对象列表"><a href="#如何通过WMI和PowerShell获取COM对象列表" class="headerlink" title="如何通过WMI和PowerShell获取COM对象列表"></a>如何通过WMI和PowerShell获取COM对象列表</h2><p>让我们看看 WMI 可以告诉我们有关系统上 COM 对象的信息。</p>
+<p>获取包含单词“COM”的所有 WMI 类的列表（执行区分大小写的匹配以避免像“computer”这样的条目）。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">gwmi</span> <span class="hljs-literal">-list</span> | ?&#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-cmatch</span> <span class="hljs-string">&quot;COM&quot;</span> &#125;<br> <br>   NameSpace: ROOT\cimv2<br> <br>Name                                Methods              Properties<br>----                                -------              ----------<br>MSFT_WMI_GenericNonCOMEvent         &#123;&#125;                   &#123;ProcessId, PropertyNames, PropertyValues, ProviderName...&#125;<br>Win32_COMApplication                &#123;&#125;                   <br></code></pre></td></tr></table></figure>
+<p>Win32_COMApplication给了我大约 386 个结果。它包括与 COM 对象关联的 COM object.AppID</p>
+<p>所有 COM 对象都有一个基本上是 COM 对象的 128 位十六进制全局唯一标识符 （GUID）。这样，可以独立于其安装路径引用 COM 对象。CLSID在网络计算机上也是唯一的（与 DCOM 一起使用时是相关的）。CLSID<br>WMI 对象将此称为。它们也可以在注册表中找到。例如，对于写字板是ComponentIDHKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSIDCLSID{73FDDC80-AEA9-101A-98A7-00AA00374959}</p>
+<p>CLSID不容易记住，有时具有不同功能的COM对象可以互换使用（例如：不同版本的Internet Explorer会有所不同，但您需要某种方式来引用Internet Explorer COM对象，以便使用系统上安装的任何版本）。因此，您有（编程标识符）。CLSIDCLSIDProgID<br>ProgIDs 可以在注册表中找到。ProgID 的格式由句点分隔，没有空格。例如，对于写字板是。HKEY_LOCAL_MACHINE\SOFTWARE\Classes<Program>.<Component>.<Version>ProgIDWordPad.Document.1</p>
+<p>PowerShell的cmdlet在创建引用COM对象时所使用的SO S与我们相关。New-ObjectProgIDProgID</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs PowerShell">help <span class="hljs-built_in">New-Object</span> <span class="hljs-literal">-Parameter</span> ComObject<br> <br><span class="hljs-literal">-ComObject</span> &lt;String&gt;<br>    Specifies the programmatic identifier (ProgID) of the COM object.<br> <br>    Required?                    true<br>    Position?                    <span class="hljs-number">1</span><br>    Default value                None<br>    Accept pipeline input?       false<br>    Accept wildcard characters?  false<br></code></pre></td></tr></table></figure>
+
+<p>虽然与当前主题无关，但还有一个是另一个 128 位十六进制 GUID。您可以在此处阅读有关它的更多信息。AppID<br>现在，让我们获取每个 WMI 类返回的对象数的列表。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">gwmi</span> <span class="hljs-literal">-list</span> | ?&#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-cmatch</span> <span class="hljs-string">&quot;COM&quot;</span> &#125; | <span class="hljs-built_in">ft</span> Name,<span class="hljs-selector-tag">@</span>&#123;Name=<span class="hljs-string">&quot;Number of objects&quot;</span>;Expr=&#123;(<span class="hljs-built_in">gwmi</span> <span class="hljs-variable">$_</span>.Name | <span class="hljs-built_in">Measure-Object</span> <span class="hljs-literal">-Line</span>).Lines&#125;&#125; <span class="hljs-literal">-AutoSize</span><br> <br>Name                                      Number of objects<br>----                                      -----------------<br>MSFT_WMI_GenericNonCOMEvent                               <span class="hljs-number">0</span><br>Win32_COMApplication                                    <span class="hljs-number">397</span><br><br><span class="hljs-comment"># store the results from each class in a variable; filter out ones where ProgID is $null</span><br><span class="hljs-variable">$COMClassicSet</span> = <span class="hljs-built_in">gwmi</span> Win32_ClassicCOMClassSetting | ?&#123; <span class="hljs-variable">$_</span>.ProgId <span class="hljs-operator">-ne</span> <span class="hljs-variable">$null</span> &#125; | <span class="hljs-built_in">Sort-Object</span><br><span class="hljs-variable">$COMSet</span> = <span class="hljs-built_in">gwmi</span> Win32_COMSetting | ?&#123; <span class="hljs-variable">$_</span>.ProgId <span class="hljs-operator">-ne</span> <span class="hljs-variable">$null</span> &#125; | <span class="hljs-built_in">Sort</span><br><span class="hljs-built_in">Compare-Object</span> <span class="hljs-variable">$COMSet</span> <span class="hljs-variable">$COMClassicSet</span><br><br></code></pre></td></tr></table></figure>
+
+ <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs powershell">  <span class="hljs-built_in">gwmi</span> <span class="hljs-literal">-list</span> | ?&#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-cmatch</span> <span class="hljs-string">&quot;COM&quot;</span> &#125; | <span class="hljs-built_in">ft</span> Name,<span class="hljs-selector-tag">@</span>&#123;Name=<span class="hljs-string">&quot;Number of objects&quot;</span>;Expr=&#123;(<span class="hljs-built_in">gwmi</span> <span class="hljs-variable">$_</span>.Name | ?&#123; <span class="hljs-variable">$_</span>.ProgID <span class="hljs-operator">-ne</span> <span class="hljs-variable">$null</span> &#125; | <span class="hljs-built_in">Measure-Object</span> <span class="hljs-literal">-Line</span>).Lines&#125;&#125; <span class="hljs-literal">-AutoSize</span><br> <br>Name                                      Number of objects<br>----                                      -----------------<br>MSFT_WMI_GenericNonCOMEvent                               <span class="hljs-number">0</span><br>Win32_COMApplication                                      <span class="hljs-number">0</span><br>Win32_DCOMApplication                                     <span class="hljs-number">0</span><br>Win32_COMClass                                            <span class="hljs-number">0</span><br>Win32_ClassicCOMClass                                     <span class="hljs-number">0</span><br>Win32_COMSetting                                       <span class="hljs-number">1613</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">gwmi</span> <span class="hljs-literal">-list</span> | ?&#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-cmatch</span> <span class="hljs-string">&quot;COM&quot;</span> &#125; | <span class="hljs-built_in">ft</span> Name,<span class="hljs-selector-tag">@</span>&#123;Name=<span class="hljs-string">&quot;Number of objects&quot;</span>;Expr=&#123;(<span class="hljs-built_in">gwmi</span> <span class="hljs-variable">$_</span>.Name | <span class="hljs-built_in">Measure-Object</span> <span class="hljs-literal">-Line</span>).Lines&#125;&#125; <span class="hljs-literal">-AutoSize</span><br> <br>Name                                      Number of objects<br>----                                      -----------------<br>MSFT_WMI_GenericNonCOMEvent                               <span class="hljs-number">0</span><br>Win32_COMApplication                                    <span class="hljs-number">397</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">gwmi</span> Win32_COMSetting | ?&#123; <span class="hljs-variable">$_</span>.ProgId <span class="hljs-operator">-match</span> <span class="hljs-string">&quot;Internet&quot;</span> &#125; | <span class="hljs-built_in">ft</span> ProgId,Caption<br></code></pre></td></tr></table></figure>
+<p>如果只有一个版本，则可以跳过版本号，这就是 whytoo 工作的原因。ProgIDInternetExplorer.Application</p>
+<p>更新：事实上，只有 theandclasses 包含它们的输出。因此，这是唯一可以使用的两个类。由于它们唯一的区别是包含没有任何对象（在我们的例子中没有用！），因此可以使用任何一个类。Win32_COMSettingWin32_ClassicCOMClassSettingProgIDWin32_COMSettingProgID</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs powershell"> <span class="hljs-built_in">gwmi</span> <span class="hljs-literal">-list</span> | ?&#123; <span class="hljs-variable">$_</span>.Name <span class="hljs-operator">-cmatch</span> <span class="hljs-string">&quot;^Win32.*COM&quot;</span> &#125; | ?&#123; <span class="hljs-selector-tag">@</span>(<span class="hljs-built_in">gwmi</span> <span class="hljs-variable">$_</span>.Name | <span class="hljs-built_in">gm</span> <span class="hljs-literal">-MemberType</span> Property | <span class="hljs-built_in">select</span> <span class="hljs-literal">-Unique</span> <span class="hljs-literal">-Expand</span> Name).Contains(<span class="hljs-string">&quot;ProgId&quot;</span>) &#125;<br> <br> <br>   NameSpace: ROOT\cimv2<br> <br>Name                                Methods              Properties<br>----                                -------              ----------<br>Win32_COMSetting                    &#123;&#125;                   &#123;Caption, Description, SettingID&#125;<br>Win32_ClassicCOMClassSetting        &#123;&#125;                   &#123;AppID, AutoConvertToClsid, AutoTreatAsClsid, Caption...&#125;<br></code></pre></td></tr></table></figure>
+<p>更新2：事实证明，WMI不是获取COM对象列表的好方法。更好的方法是查询注册表。请参阅我的下一篇文章。</p>
+<h2 id="如何从注册表中获取-COM-对象的列表"><a href="#如何从注册表中获取-COM-对象的列表" class="headerlink" title="如何从注册表中获取 COM 对象的列表"></a>如何从注册表中获取 COM 对象的列表</h2><p>今天，我正在我的机器上寻找COMfor Excel，但我以前使用WMI的方法不起作用。ProgID</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">gwmi</span> Win32_COMSetting | ?&#123; <span class="hljs-variable">$_</span>.ProgId <span class="hljs-operator">-match</span> <span class="hljs-string">&quot;Excel&quot;</span> &#125;<br></code></pre></td></tr></table></figure>
+<p>这是不正确的，因为我可以通过引用来创建新的COM对象。Excel.Application</p>
+<p>由于在注册表中找到了我认为这将是获取详尽列表的好地方。在此键下有三种类型的子项：ProgIDHKEY_LOCAL_MACHINE\SOFTWARE\Classes</p>
+<p>在系统中注册的每个文件扩展名的子项，每个子项都有带有的条目和一个带有的子项。不过，并非所有这些似乎都是有效的（基于我的测试），因此最好使用下面详述的其他子项集。(Default)ProgIDProgIDProgIDs<br>每个子键 - 通常是两种格式和 - 同样，并非所有有效，但有效性的一个很好的测试（基于我的测试）是它们是否包含调用的子键。ProgIDProgID<Program>.<Component>.<Version><Program>.<Component>CLSID<br>子键，如“未知”、“未定”等，还有一些看起来像但格式不正确的子键（例如：它们不包含 thebit，或包含空格和下划线（不允许）ProgID<Component>.<Version>)<br>因此，过滤掉的一种明智方法似乎是检查格式的子项（可选）并进一步过滤掉具有子键的子键。ProgIDs<Program>.<Component>.<Version><Version>CLSID</p>
+<p>因此，我们有以下内容：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-ChildItem</span> <span class="hljs-string">&quot;HKLM:\SOFTWARE\Classes&quot;</span> | <br>  ?&#123; (<span class="hljs-variable">$_</span>.PSChildName <span class="hljs-operator">-match</span> <span class="hljs-string">&quot;^[a-z]+\.[a-z]+(\.\d+)?<span class="hljs-variable">$</span>&quot;</span>) <span class="hljs-operator">-and</span> (<span class="hljs-variable">$_</span>.GetSubKeyNames() <span class="hljs-operator">-contains</span> <span class="hljs-string">&quot;CLSID&quot;</span>) &#125; | <span class="hljs-built_in">ft</span> PSChildName<br></code></pre></td></tr></table></figure>
+<p>要搜索特定的应用程序，可以执行以下操作：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-ChildItem</span> <span class="hljs-string">&quot;HKLM:\SOFTWARE\Classes&quot;</span> | <br>  ?&#123; (<span class="hljs-variable">$_</span>.PSChildName <span class="hljs-operator">-match</span> <span class="hljs-string">&quot;^[a-z]+\.[a-z]+(\.\d+)?<span class="hljs-variable">$</span>&quot;</span>) <span class="hljs-operator">-and</span> (<span class="hljs-variable">$_</span>.GetSubKeyNames() <span class="hljs-operator">-contains</span> <span class="hljs-string">&quot;CLSID&quot;</span>) &#125; | <br>  ?&#123; <span class="hljs-variable">$_</span>.PSChildName <span class="hljs-operator">-match</span> <span class="hljs-string">&quot;Excel&quot;</span> &#125; | <span class="hljs-built_in">ft</span> PSChildName<br></code></pre></td></tr></table></figure>
+
+<h2 id="查找昨天修改的所有-GPO"><a href="#查找昨天修改的所有-GPO" class="headerlink" title="查找昨天修改的所有 GPO"></a>查找昨天修改的所有 GPO</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-GPO</span> <span class="hljs-literal">-All</span> | ?&#123; ([<span class="hljs-built_in">datetime</span>]::today - (<span class="hljs-variable">$_</span>.ModificationTime)).Days <span class="hljs-operator">-le</span> <span class="hljs-number">1</span> &#125; | <span class="hljs-built_in">ft</span> DisplayName,ModificationTime<br></code></pre></td></tr></table></figure>
+<p>并报告这些相同 GPO 中的设置，请执行以下操作：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-GPO</span> <span class="hljs-literal">-All</span> | ?&#123; ([<span class="hljs-built_in">datetime</span>]::today - (<span class="hljs-variable">$_</span>.ModificationTime)).Days <span class="hljs-operator">-le</span> <span class="hljs-number">1</span> &#125; | %&#123; <span class="hljs-built_in">Get-GPOReport</span> <span class="hljs-variable">$_</span>.DisplayName <span class="hljs-literal">-ReportType</span> HTML &#125; &gt; Report.html<br></code></pre></td></tr></table></figure>
+<p>是的，我最后用 &gt; 而不是 Out-File。老毛病了</p>
+<h2 id="如果你注册不上dll，请安装对应版本的c"><a href="#如果你注册不上dll，请安装对应版本的c" class="headerlink" title="如果你注册不上dll，请安装对应版本的c++"></a>如果你注册不上dll，请安装对应版本的c++</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs batch">C:\WINDOWS\system32\regsvr32.exe xxx.dll<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+<h2 id="owner与managerby的区别"><a href="#owner与managerby的区别" class="headerlink" title="owner与managerby的区别"></a>owner与managerby的区别</h2><p>owner是指此对象的acl权限，即在此对象的安全选项卡中，此对象acl的所有者</p>
+<p>managerby是管理者，当你赋予一个人管理此组时，同时勾选了“管理员可更新成员列表”，即会会在acl中授予一条ace，</p>
+<h2 id="为什么有了managerby还需要msExchCoManagedByLink"><a href="#为什么有了managerby还需要msExchCoManagedByLink" class="headerlink" title="为什么有了managerby还需要msExchCoManagedByLink"></a>为什么有了managerby还需要msExchCoManagedByLink</h2><p>为了向后兼容<br>我看到了一个由Exchange 2010功能管理的多种奇怪的行为（至少对我来说是这样）。只是想知道这背后的原因是什么。</p>
+<p>我注意到Exchange将AD的ManagedBy及其自己的Managed By（msExchCoManagedByLink）用户一起显示。如果我只添加一个使用Exchange 2010快照，它将添加到AD的managedBy属性中（而不是msExchCoManagedByLink），如果我添加多个用户作为Managed By，那么将首先添加到AD的mandBy属性中，其他用户将添加到Exchange的msExchCoManagedByLink属性中。</p>
+<p>我还注意到，Exchange中有一个限制，我们无法将安全组、分发组或非邮件启用用户设置为管理者。只有邮箱或启用邮件的用户才能由管理。但在AD中，我们可以将安全组或非邮件启用组设置为管理者。因此，如果我在AD中将安全组设置为管理者，然后尝试在Exchange 2010中查看管理列表，它不会显示这一点。如果我尝试添加新的管理者（邮箱或启用邮件的用户），它会抛出一个异常，即特定的xyz是一个安全组，无法在按列表管理中添加。（请记住，我从AD添加了这个组，现在我正在添加一个邮箱）</p>
+<p>对我来说，这似乎是一种奇怪的行为，因为如果Exchange和AD的管理标准都不同，那么为什么Exchange要处理AD的管理者？为什么Exchange无法存储其所有托管的属性（msExchCoManagedByLink）。以及为什么我无法为托管的特定组使用此功能，该组设置了一个安全组和/或非启用邮件的组（正如我描述的那样，我收到了错误）。</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">Cet<span class="hljs-literal">-ADGroup</span> mygroup <span class="hljs-literal">-Properties</span> * |<span class="hljs-built_in">SELECT</span> msExchCoManagedByLink<br><br>CN=zhansan,<span class="hljs-number">0</span>U=test,DC=centoso,DC=com,CN=xbw,DC=centoso,DC=com)<br></code></pre></td></tr></table></figure>
+
+
+
+<p>我可以回答您问题的第一部分（为什么Exchange UI中的属性同时使用managedBy和msExchCoManagedBy）。这是为向后兼容性而完成的。</p>
+<p>因此，在旧版本的Exchange中，“managedBy”是唯一用于组所有权的属性，AD中的此属性是单个值属性。Exchange 2010希望允许组的多个所有者，因此他们引入了一个新的多值属性（以免更改旧属性的模式并打破向后兼容性）。因此，为了保护旧客户环境并保持其功能，他们对第一个所有者使用“manangedBy”属性（这使得只有managedBy填充工作的旧AD），然后当您想添加更多所有者时，它们会扩展到msExchCoManangedBy。</p>
+<p>不确定为什么您不能将组和非邮件启用的对象用作所有者。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/PowerShell/">PowerShell</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Windows/">Windows</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/02/powershell%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+                        <span class="hidden-mobile">Windows PowerShell 配置文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

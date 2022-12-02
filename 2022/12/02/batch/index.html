@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  
+  <title>batch - bowenxiong</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>熊博文的博客</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="batch">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-12-02 21:41" pubdate>
+        2022年12月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      430 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">batch</h1>
+            
+            <div class="markdown-body">
+              <h2 id="查询dc服务器"><a href="#查询dc服务器" class="headerlink" title="查询dc服务器"></a>查询dc服务器</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">nltest<br></code></pre></td></tr></table></figure>
+<h2 id="命令行关闭-windows-10防火墙"><a href="#命令行关闭-windows-10防火墙" class="headerlink" title="命令行关闭 windows 10防火墙"></a>命令行关闭 windows 10防火墙</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netsh advfirewall <span class="hljs-built_in">set</span> allprofiles state off  <span class="hljs-comment">#关闭防火墙</span><br>netsh advfirewall show allprofiles           <span class="hljs-comment">#查看防火墙状态</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="获得远程桌面的端口"><a href="#获得远程桌面的端口" class="headerlink" title="获得远程桌面的端口"></a>获得远程桌面的端口</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">reg query <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /v PortNumber<br></code></pre></td></tr></table></figure>
+
+<h2 id="注册表开启远程桌面服务"><a href="#注册表开启远程桌面服务" class="headerlink" title="注册表开启远程桌面服务"></a>注册表开启远程桌面服务</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">REG ADD <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&quot;</span> /v <span class="hljs-string">&quot;fDenyTSConnections&quot;</span> /t REG_DWORD /d <span class="hljs-number">0</span> /f<br></code></pre></td></tr></table></figure>
+
+<h2 id="更改注册表允许导入外部模块"><a href="#更改注册表允许导入外部模块" class="headerlink" title="更改注册表允许导入外部模块"></a>更改注册表允许导入外部模块</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Set-ItemProperty</span> HKLM:\SOFTWARE\Microsoft\PowerShell\<span class="hljs-number">1</span>\ShellIds\Microsoft.PowerShell <span class="hljs-literal">-Name</span> ExecutionPolicy <span class="hljs-literal">-Value</span> Bypass  <span class="hljs-comment">#更改注册表允许导入外部模块</span><br></code></pre></td></tr></table></figure>
+<p>Import-Module \10.1.48.250\psm1\get-oa-user-title-two.psm1</p>
+<h2 id="psexec远程访问"><a href="#psexec远程访问" class="headerlink" title="psexec远程访问"></a>psexec远程访问</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell">&gt;D:\PsExec.exe \\<span class="hljs-number">10.1</span>.<span class="hljs-number">71.35</span>   <span class="hljs-literal">-u</span> centoso\administrtaor <span class="hljs-literal">-p</span> C0nsole@yun <span class="hljs-literal">-s</span> cmd<br>whoami /groups<br>Mandatory Label\System Mandatory Level    标签   S<span class="hljs-literal">-1</span><span class="hljs-literal">-16</span><span class="hljs-literal">-16384</span> <br>&gt;D:\PsExec.exe \\<span class="hljs-number">10.1</span>.<span class="hljs-number">71.35</span>   <span class="hljs-literal">-u</span> lexinfintech\administrtaor <span class="hljs-literal">-p</span> C0nsole@yun <span class="hljs-literal">-h</span> cmd<br>whoami /groups<br>Mandatory Label\High Mandatory Level    标签   S<span class="hljs-literal">-1</span><span class="hljs-literal">-16</span><span class="hljs-literal">-12288</span> <br></code></pre></td></tr></table></figure>
+<h2 id="验证ad账号和密码"><a href="#验证ad账号和密码" class="headerlink" title="验证ad账号和密码"></a>验证ad账号和密码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-variable">$Try</span> = <span class="hljs-keyword">New</span>-<span class="hljs-keyword">Object</span> System.DirectoryServices.DirectoryEntry(<span class="hljs-string">&quot;LDAP://DC=centoso,DC=Com&quot;</span>, <span class="hljs-string">&quot;zhansan&quot;</span>, <span class="hljs-string">&quot;xxxxxx&quot;</span>)<br><span class="hljs-variable">$Try</span><br></code></pre></td></tr></table></figure>
+<h2 id="计算机改名重启"><a href="#计算机改名重启" class="headerlink" title="计算机改名重启"></a>计算机改名重启</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">netdom renamecomputer rockli<span class="hljs-literal">-Pc2</span>  /newname:rubikwang<span class="hljs-literal">-Pc1</span> /userd:centoso\administrator /passwordd:xxxxxxxxxyun /force /reboot:<span class="hljs-number">60</span><br></code></pre></td></tr></table></figure>
+<h2 id="创建定时任务"><a href="#创建定时任务" class="headerlink" title="创建定时任务"></a>创建定时任务</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell">schtasks /create /tn <span class="hljs-string">&quot;shutdown&quot;</span> /tr <span class="hljs-string">&quot;shutdown -s -t 0&quot;</span> /<span class="hljs-built_in">sc</span> daily /st <span class="hljs-number">22</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span>  /ru administrator /<span class="hljs-built_in">rp</span> C0nsole@yun<br></code></pre></td></tr></table></figure>
+
+<h2 id="格式化输出Windows定时任务"><a href="#格式化输出Windows定时任务" class="headerlink" title="格式化输出Windows定时任务"></a>格式化输出Windows定时任务</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">schtasks.exe /query /v /fo csv | <span class="hljs-built_in">ConvertFrom-Csv</span> |<br> <span class="hljs-built_in">Where-Object</span> &#123; <span class="hljs-variable">$_</span>.TaskName <span class="hljs-operator">-ne</span> <span class="hljs-string">&#x27;TaskName&#x27;</span> &#125; |<br> <span class="hljs-built_in">Sort-Object</span> TaskName | <span class="hljs-built_in">Out-GridView</span> <span class="hljs-literal">-Title</span> <span class="hljs-string">&#x27;All scheduled tasks&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="注册表"><a href="#注册表" class="headerlink" title="注册表"></a>注册表</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-keyword">if</span> ((<span class="hljs-built_in">Get-WmiObject</span> <span class="hljs-literal">-Class</span> Win32_OperatingSystem).Caption <span class="hljs-operator">-like</span> <span class="hljs-string">&quot;*7*&quot;</span>)<br>    &#123;<br><span class="hljs-built_in">Set-ItemProperty</span> HKCU:\<span class="hljs-string">&#x27;Control Panel&#x27;</span>\Desktop <span class="hljs-literal">-name</span> <span class="hljs-string">&quot;ScreenSaveTimeOut&quot;</span> <span class="hljs-literal">-value</span> <span class="hljs-number">300</span><br><span class="hljs-built_in">Set-ItemProperty</span> HKCU:\<span class="hljs-string">&#x27;Control Panel&#x27;</span>\Desktop <span class="hljs-literal">-name</span> <span class="hljs-string">&quot;ScreenSaverIsSecure&quot;</span> <span class="hljs-literal">-value</span> <span class="hljs-number">1</span><br><span class="hljs-built_in">Set-ItemProperty</span> HKCU:\<span class="hljs-string">&#x27;Control Panel&#x27;</span>\Desktop <span class="hljs-literal">-name</span> <span class="hljs-string">&quot;SCRNSAVE.EXE&quot;</span> <span class="hljs-literal">-value</span> C:\Windows\system32\Mystify.scr<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="快速获得远程桌面的端口"><a href="#快速获得远程桌面的端口" class="headerlink" title="快速获得远程桌面的端口"></a>快速获得远程桌面的端口</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs powershell">reg query <span class="hljs-string">&quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&quot;</span> /v PortNumber<br><br>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP<span class="hljs-literal">-Tcp</span><br>    PortNumber    REG_DWORD    <span class="hljs-number">0</span>xd3d<br></code></pre></td></tr></table></figure>
+<h2 id="获取进程pid"><a href="#获取进程pid" class="headerlink" title="获取进程pid"></a>获取进程pid</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">Get-wmiobject</span> <span class="hljs-literal">-class</span> win32_service <span class="hljs-literal">-fliter</span> “name=‘dot3svc’” ｜<span class="hljs-built_in">select</span> *<br></code></pre></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Windows/">Windows</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Windows/">Windows</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/12/02/powershell%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Windows PowerShell 配置文件</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/02/wmic/">
+                        <span class="hidden-mobile">wmic命令行使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
